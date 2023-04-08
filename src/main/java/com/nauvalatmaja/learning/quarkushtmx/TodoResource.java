@@ -1,8 +1,8 @@
 package com.nauvalatmaja.learning.quarkushtmx;
 
-import java.util.Arrays;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -14,6 +14,9 @@ import io.quarkus.qute.TemplateInstance;
 @Path("/todo")
 public class TodoResource {
 
+	@Inject
+	TodoService todoService;
+
 	@CheckedTemplate
 	public static class Templates {
 		public static native TemplateInstance todo(List<Item> items);
@@ -22,16 +25,6 @@ public class TodoResource {
 	@GET
 	@Produces(MediaType.TEXT_HTML)
 	public TemplateInstance index() {
-		return Templates.todo(Arrays.asList(
-			Item.builder()
-				.id(1)
-				.task("Checklist 1")
-				.build(),
-			Item.builder()
-				.id(2)
-				.done(true)
-				.task("Checklist 2")
-				.build()
-		));
+		return Templates.todo(todoService.list());
 	}
 }
