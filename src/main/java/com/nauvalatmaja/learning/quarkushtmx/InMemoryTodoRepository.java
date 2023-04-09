@@ -3,7 +3,10 @@ package com.nauvalatmaja.learning.quarkushtmx;
 import java.util.Arrays;
 import java.util.List;
 
-public class DoubleTodoRepository implements TodoRepository {
+import javax.enterprise.context.ApplicationScoped;
+
+@ApplicationScoped
+public class InMemoryTodoRepository implements TodoRepository {
 
 	@Override
 	public List<Item> list() {

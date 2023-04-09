@@ -7,7 +7,7 @@ public class TodoServiceTest {
 
 	@Test
 	public void testServiceCallTodoRepositoryListMethod() {
-		TodoRepository repository = Mockito.spy(new DoubleTodoRepository());		
+		TodoRepository repository = Mockito.spy(new InMemoryTodoRepository());		
 		TodoService service = new TodoService(repository);
 
 		service.list();

@@ -3,8 +3,6 @@ package com.nauvalatmaja.learning.quarkushtmx;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-import javax.enterprise.inject.Produces;
-
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -12,9 +10,6 @@ import io.restassured.http.ContentType;
 
 @QuarkusTest
 public class TodoResourceTest {
-
-	@Produces	
-	TodoRepository todoRepository = new DoubleTodoRepository();
 	
 	@Test
 	public void testTodoIndexShouldReturnHtml() {
