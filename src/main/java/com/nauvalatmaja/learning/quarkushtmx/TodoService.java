@@ -5,14 +5,15 @@ import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @ApplicationScoped
 public class TodoService {
+	private final TodoRepository todoRepository;
 
     public List<Item> list() {
-        return Arrays.asList(
-			Item.builder().id(1).task("Checklist 1").build(),
-			Item.builder().id(2).task("Checklist 2").done(true).build()
-		);
+        return todoRepository.list();
     }
 
 }
