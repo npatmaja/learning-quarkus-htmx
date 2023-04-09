@@ -3,13 +3,25 @@ package com.nauvalatmaja.learning.quarkushtmx;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
+import javax.inject.Inject;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import io.quarkus.test.junit.QuarkusMock;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 
 @QuarkusTest
 public class TodoResourceTest {
+
+	@BeforeAll
+	public static void setup() {
+		TodoRepository repo = new InMemoryTodoRepository();
+		repo.add(Item.builder().id(1).task("Checklist 1").build());
+		repo.add(Item.builder().id(2).task("Checklist 2").done(true).build());
+		QuarkusMock.installMockForType(repo, TodoRepository.class);
+	}
 	
 	@Test
 	public void testTodoIndexShouldReturnHtml() {

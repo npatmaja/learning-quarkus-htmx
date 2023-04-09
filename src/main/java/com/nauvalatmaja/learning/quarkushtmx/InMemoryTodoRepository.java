@@ -1,19 +1,33 @@
 package com.nauvalatmaja.learning.quarkushtmx;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class InMemoryTodoRepository implements TodoRepository {
 
+	private Map<Integer, Item> todos;
+
+	public InMemoryTodoRepository() {
+		if (todos == null) {
+			todos = new HashMap<>();
+		}
+	}
+
 	@Override
 	public List<Item> list() {
-        return Arrays.asList(
-			Item.builder().id(1).task("Checklist 1").build(),
-			Item.builder().id(2).task("Checklist 2").done(true).build()
-		);
+		return new ArrayList<>(todos.values());
+	}
+
+	@Override
+	public void add(Item item) {
+		todos.put(item.getId(), item);
 	}
 
 }

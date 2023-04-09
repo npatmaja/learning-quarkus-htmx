@@ -4,5 +4,7 @@ import java.util.List;
 
 public interface TodoRepository {
 	public List<Item> list();
+
+	public void add(Item build);
 }
 
