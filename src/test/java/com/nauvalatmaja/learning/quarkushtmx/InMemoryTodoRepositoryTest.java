@@ -30,4 +30,16 @@ public class InMemoryTodoRepositoryTest {
 		assertEquals("2", actual.get(1).getTask());
 		assertEquals(true, actual.get(1).isDone());
 	}
+
+	@Test
+	public void testAddItemWithoutIdShouldAddCorrectId() {
+		TodoRepository repo = new InMemoryTodoRepository();
+		repo.add(Item.builder().task("1").build());
+		repo.add(Item.builder().task("2").done(true).build());
+
+		List<Item> actual = repo.list();
+		assertEquals(2, actual.size());
+		assertEquals(1, actual.get(0).getId());
+		assertEquals(2, actual.get(1).getId());
+	}
 }

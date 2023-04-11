@@ -16,5 +16,9 @@ public class TodoService {
         return todoRepository.list();
     }
 
+	public void add(String todoText) {
+		todoRepository.add(Item.builder().task(todoText).build());
+	}
+
 }
 

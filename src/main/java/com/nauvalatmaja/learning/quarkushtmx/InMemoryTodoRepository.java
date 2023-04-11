@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.enterprise.context.ApplicationScoped;
 
@@ -27,6 +28,10 @@ public class InMemoryTodoRepository implements TodoRepository {
 
 	@Override
 	public void add(Item item) {
+		int id = todos.size() + 1;
+		if (item.getId() <= 0) {
+			item.setId(id);
+		}
 		todos.put(item.getId(), item);
 	}
 

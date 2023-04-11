@@ -6,6 +6,10 @@
 	<body>
 		<h1>Simple Todo App</h1>
 		<div>
+			<form id="new-todo" action="/todo/new" method="post">
+				<input type="text" name="todoText">
+				<input type="submit" name="submit">
+			</form>
 			<ul>
 				{#for item in items}
 				<li><input type="checkbox" name="id" value={item.id} {#if item.done}checked{/if}><label>{item.task}</label></li>
