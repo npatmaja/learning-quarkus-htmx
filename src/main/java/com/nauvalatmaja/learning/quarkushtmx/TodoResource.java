@@ -31,7 +31,7 @@ public class TodoResource {
 	}
 
 	@POST
-	@Path("/new")
+	// @Path("/new")
 	public TemplateInstance newTodo(@FormParam("todoText") String todoText) {
 		todoService.add(todoText);
 		return Templates.todo(todoService.list());

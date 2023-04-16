@@ -20,10 +20,25 @@ public class TodoResourceNewTodoTest {
 	}
 
 	@Test
+	public void testTodoIndexShouldShowTodoTextInputForm() {
+		given().when().get("/todo")
+			.then()
+			.statusCode(200)
+			.contentType(ContentType.HTML)
+			.body("html.body.div.form.@method", equalTo("post"))
+			.body("html.body.div.form.@action", equalTo("/todo"))
+			.body("html.body.div.form.@id", equalTo("new-todo"))
+			.body("html.body.div.form.input[0].@type", equalTo("text"))
+			.body("html.body.div.form.input[0].@name", equalTo("todoText"))
+			.body("html.body.div.form.input[1].@type", equalTo("submit"))
+			.body("html.body.div.form.input[1].@name", equalTo("submit"));
+	}
+
+	@Test
 	public void testTodoNewShouldShowNewTodo() {
 		given()
 			.params("todoText", "new checklist")
-			.when().post("/todo/new")
+			.when().post("/todo")
 			.then()
 			.statusCode(200)
 			.contentType(ContentType.HTML)

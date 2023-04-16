@@ -53,20 +53,4 @@ public class TodoResourceTest {
 			.body("html.body.div.ul.li[1].input.@value", equalTo("2"))
 			.body("html.body.div.ul.li[1].input.@checked", equalTo("checked"));
 	}
-
-	@Test
-	public void testTodoIndexShouldShowTodoTextInputForm() {
-		given().when().get("/todo")
-			.then()
-			.statusCode(200)
-			.contentType(ContentType.HTML)
-			.body("html.body.div.form.@method", equalTo("post"))
-			.body("html.body.div.form.@action", equalTo("/todo/new"))
-			.body("html.body.div.form.@id", equalTo("new-todo"))
-			.body("html.body.div.form.input[0].@type", equalTo("text"))
-			.body("html.body.div.form.input[0].@name", equalTo("todoText"))
-			.body("html.body.div.form.input[1].@type", equalTo("submit"))
-			.body("html.body.div.form.input[1].@name", equalTo("submit"));
-	}
-
 }
