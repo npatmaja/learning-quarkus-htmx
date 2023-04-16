@@ -36,4 +36,11 @@ public class TodoResource {
 		todoService.add(todoText);
 		return Templates.todo(todoService.list());
 	}
+
+	@POST
+	@Path("/new")
+	public TemplateInstance newTodoPartial(@FormParam("todoText") String todoText) {
+		todoService.add(todoText);
+		return Templates.todo(null).getFragment("todo_items").data("items", todoService.list());
+	}
 }

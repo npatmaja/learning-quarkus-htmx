@@ -2,20 +2,25 @@
 <html lang="en">
 	<head>
 		<title>Simple Todo App</title>
+		<script src="https://unpkg.com/htmx.org@1.9.0" integrity="sha384-aOxz9UdWG0yBiyrTwPeMibmaoq07/d3a96GCbb9x60f3mOt5zwkjdbcHFnKH8qls" crossorigin="anonymous"></script>
 	</head>
 	<body>
 		<h1>Simple Todo App</h1>
 		<div>
-			<form id="new-todo" action="/todo" method="post">
+			<form id="new-todo"
+				hx-post="/todo/new"
+				hx-target="#todo-list"
+				hx-swap="outerHTML">
 				<input type="text" name="todoText">
 				<input type="submit" name="submit">
 			</form>
-			<ul>
+			{#fragment id=todo_items}
+			<ul id="todo-list">
 				{#for item in items}
 				<li><input type="checkbox" name="id" value={item.id} {#if item.done}checked{/if}><label>{item.task}</label></li>
 				{/for}
 			</ul>
+			{/fragment}
 		</div>	
 	</body>
 </html>
-
