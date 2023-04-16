@@ -31,13 +31,7 @@ public class TodoResource {
 	}
 
 	@POST
-	// @Path("/new")
-	public TemplateInstance newTodo(@FormParam("todoText") String todoText) {
-		todoService.add(todoText);
-		return Templates.todo(todoService.list());
-	}
-
-	@POST
+	@Produces(MediaType.TEXT_HTML)
 	@Path("/new")
 	public TemplateInstance newTodoPartial(@FormParam("todoText") String todoText) {
 		todoService.add(todoText);

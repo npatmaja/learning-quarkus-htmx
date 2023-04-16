@@ -2,6 +2,9 @@ package com.nauvalatmaja.learning.quarkushtmx;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -25,9 +28,8 @@ public class TodoResourceNewTodoTest {
 			.then()
 			.statusCode(200)
 			.contentType(ContentType.HTML)
-			.body("html.body.div.form.@method", equalTo("post"))
-			.body("html.body.div.form.@action", equalTo("/todo"))
 			.body("html.body.div.form.@id", equalTo("new-todo"))
+			.body("html.body.div.form.@hx-post", equalTo("/todo/new"))
 			.body("html.body.div.form.input[0].@type", equalTo("text"))
 			.body("html.body.div.form.input[0].@name", equalTo("todoText"))
 			.body("html.body.div.form.input[1].@type", equalTo("submit"))
@@ -36,15 +38,19 @@ public class TodoResourceNewTodoTest {
 
 	@Test
 	public void testTodoNewShouldShowNewTodo() {
-		given()
+		String expected = "<ul id=\"todo-list\">\n<li><input type=\"checkbox\" name=\"id\" value=1 ><label>new checklist</label></li>\n</ul>";
+		String response = given()
 			.params("todoText", "new checklist")
-			.when().post("/todo")
+			.when().post("/todo/new")
+			.peek()
 			.then()
 			.statusCode(200)
-			.contentType(ContentType.HTML)
-			.body("html.body.div.ul.li[0].input.@type", equalTo("checkbox"))
-			.body("html.body.div.ul.li[0].input.@name", equalTo("id"))
-			.body("html.body.div.ul.li[0].input.@value", equalTo("1"))
-			.body("html.body.div.ul.li[0].label", equalTo("new checklist"));
+			.extract().asString();
+		String[] splitted = response.split("\n");
+		for (int i = 0; i < splitted.length; i++) {
+			splitted[i] = splitted[i].trim();
+		}
+		String actual = String.join("\n", splitted);
+		assertEquals(expected, actual);
 	}
 }
