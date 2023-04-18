@@ -3,15 +3,20 @@
 	<head>
 		<title>Simple Todo App</title>
 		<script src="https://unpkg.com/htmx.org@1.9.0" integrity="sha384-aOxz9UdWG0yBiyrTwPeMibmaoq07/d3a96GCbb9x60f3mOt5zwkjdbcHFnKH8qls" crossorigin="anonymous"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 	</head>
 	<body>
 		<h1>Simple Todo App</h1>
 		<div>
-			<form id="new-todo"
+			<form 
+				x-data
+				id="new-todo"
 				hx-post="/todo/new"
 				hx-target="#todo-list"
-				hx-swap="outerHTML">
-				<input type="text" name="todoText">
+				hx-swap="outerHTML"
+				@todo-added.window="$el.reset()"
+				>
+				<input id="todo-text" type="text" name="todoText">
 				<input type="submit" name="submit">
 			</form>
 			{#fragment id=todo_items}
@@ -22,5 +27,12 @@
 			</ul>
 			{/fragment}
 		</div>	
+		<script>
+			document.body.addEventListener("htmx:beforeSwap", function(e) {
+				if (e.detail.xhr.status === 200) {
+					window.dispatchEvent(new CustomEvent('todo-added', { bubbles: true }));
+				}
+			})
+		</script>
 	</body>
 </html>
