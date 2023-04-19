@@ -3,6 +3,7 @@ package com.nauvalatmaja.learning.quarkushtmx;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -31,6 +32,7 @@ public class TodoResource {
 	}
 
 	@POST
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_HTML)
 	@Path("/new")
 	public TemplateInstance newTodoPartial(@FormParam("todoText") String todoText) {

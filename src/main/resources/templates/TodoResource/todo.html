@@ -17,6 +17,7 @@
 				@todo-added.window="$el.reset()"
 				>
 				<input id="todo-text" type="text" name="todoText">
+				<input type="hidden" name="{inject:csrf.parameterName}" value="{inject:csrf.token}" />
 				<input type="submit" name="submit">
 			</form>
 			{#fragment id=todo_items}
