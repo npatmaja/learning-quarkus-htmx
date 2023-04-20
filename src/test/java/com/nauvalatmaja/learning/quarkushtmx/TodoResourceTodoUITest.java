@@ -11,7 +11,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 
 @QuarkusTest
-public class TodoResourceTest {
+public class TodoResourceTodoUITest {
 
 	@BeforeAll
 	public static void setup() {
