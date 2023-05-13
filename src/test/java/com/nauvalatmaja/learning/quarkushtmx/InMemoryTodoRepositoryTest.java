@@ -42,4 +42,22 @@ public class InMemoryTodoRepositoryTest {
 		assertEquals(1, actual.get(0).getId());
 		assertEquals(2, actual.get(1).getId());
 	}
+
+	@Test
+	public void testToogleIsDoneShouldChangeFalseToTrue() {
+		TodoRepository repo = new InMemoryTodoRepository();
+		repo.add(Item.builder().task("1").build());
+
+		repo.toggleDone(1);
+		assertEquals(true, repo.list().get(0).isDone());
+	}
+
+	@Test
+	public void testToogleIsDoneShouldChangeTrueToFalse() {
+		TodoRepository repo = new InMemoryTodoRepository();
+		repo.add(Item.builder().task("1").done(true).build());
+
+		repo.toggleDone(1);
+		assertEquals(false, repo.list().get(0).isDone());
+	}
 }

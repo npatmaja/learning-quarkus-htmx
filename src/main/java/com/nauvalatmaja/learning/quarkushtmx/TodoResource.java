@@ -23,6 +23,8 @@ public class TodoResource {
 	@CheckedTemplate
 	public static class Templates {
 		public static native TemplateInstance todo(List<Item> items);
+		public static native TemplateInstance todo$todo_items(List<Item> items);
+		public static native TemplateInstance todo$todo_item(Item item);
 	}
 	
 	@GET
@@ -37,6 +39,14 @@ public class TodoResource {
 	@Path("/new")
 	public TemplateInstance newTodoPartial(@FormParam("todoText") String todoText) {
 		todoService.add(todoText);
-		return Templates.todo(null).getFragment("todo_items").data("items", todoService.list());
+		return Templates.todo$todo_items(todoService.list());
+	}
+
+	@POST
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.TEXT_HTML)
+	@Path("/toggle-done")
+	public TemplateInstance toggleDone(@FormParam("id") int itemId) {
+		return Templates.todo$todo_item(todoService.toggleDone(itemId));
 	}
 }

@@ -36,10 +36,8 @@ public class TodoResourceTodoUITest {
 			.then()
 			.statusCode(200)
 			.contentType(ContentType.HTML)
-			.body("html.body.div.ul.li[0].input.@type", equalTo("checkbox"))
-			.body("html.body.div.ul.li[0].input.@name", equalTo("id"))
-			.body("html.body.div.ul.li[0].input.@value", equalTo("1"))
-			.body("html.body.div.ul.li[0].label", equalTo("Checklist 1"));
+			.body("html.body.div.ul.li[0].div.input.@type", equalTo("checkbox"))
+			.body("html.body.div.ul.li[0].div.label", equalTo("Checklist 1"));
 	}
 
 	@Test
@@ -48,9 +46,7 @@ public class TodoResourceTodoUITest {
 			.then()
 			.statusCode(200)
 			.contentType(ContentType.HTML)
-			.body("html.body.div.ul.li[1].input.@type", equalTo("checkbox"))
-			.body("html.body.div.ul.li[1].input.@name", equalTo("id"))
-			.body("html.body.div.ul.li[1].input.@value", equalTo("2"))
-			.body("html.body.div.ul.li[1].input.@checked", equalTo("checked"));
+			.body("html.body.div.ul.li[1].div.input.@type", equalTo("checkbox"))
+			.body("html.body.div.ul.li[1].div.input.@checked", equalTo("checked"));
 	}
 }

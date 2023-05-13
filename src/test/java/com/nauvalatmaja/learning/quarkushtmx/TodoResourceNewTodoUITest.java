@@ -3,6 +3,7 @@ package com.nauvalatmaja.learning.quarkushtmx;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,6 @@ public class TodoResourceNewTodoUITest {
 
 	@Test
 	public void testTodoNewShouldReturnListWithNewTodo() {
-		String expected = "<ul id=\"todo-list\">\n<li><input type=\"checkbox\" name=\"id\" value=1 ><label>new checklist</label></li>\n</ul>";
 		String csrf = "XVNuKyOb8HbeA-TaroMgeg";
 		String response = given()
 			.params("todoText", "new checklist", "csrf-token", csrf)
@@ -51,7 +51,9 @@ public class TodoResourceNewTodoUITest {
 		for (int i = 0; i < splitted.length; i++) {
 			splitted[i] = splitted[i].trim();
 		}
-		String actual = String.join("\n", splitted);
-		assertEquals(expected, actual);
+		assertTrue(response.trim().startsWith("<ul id=\"todo-list\">"), "Start with <ul>");
+		assertTrue(response.contains("<li>"), "contains <li>");
+		assertTrue(response.contains("<form id=\"toggle-1\""), "contains tag form with id toggle-1");
+		assertTrue(response.contains("<input type=\"checkbox\""), "contains input type checkbox");
 	}
 }

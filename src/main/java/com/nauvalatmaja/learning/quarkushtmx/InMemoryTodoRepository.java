@@ -1,14 +1,13 @@
 package com.nauvalatmaja.learning.quarkushtmx;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.enterprise.context.ApplicationScoped;
+
+import lombok.SneakyThrows;
 
 @ApplicationScoped
 public class InMemoryTodoRepository implements TodoRepository {
@@ -33,6 +32,21 @@ public class InMemoryTodoRepository implements TodoRepository {
 			item.setId(id);
 		}
 		todos.put(item.getId(), item);
+	}
+
+	@Override
+	@SneakyThrows
+	public Item toggleDone(int itemId) {
+		Item i = todos.get(itemId);
+		if (i == null) {
+			throw new ItemNotFoundException(itemId);
+		}
+		if (i.isDone()) {
+			i.setDone(false);
+		} else {
+			i.setDone(true);
+		}
+		return i;
 	}
 
 }

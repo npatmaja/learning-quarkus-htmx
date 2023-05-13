@@ -1,6 +1,5 @@
 package com.nauvalatmaja.learning.quarkushtmx;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -18,6 +17,10 @@ public class TodoService {
 
 	public void add(String todoText) {
 		todoRepository.add(Item.builder().task(todoText).build());
+	}
+
+	public Item toggleDone(int itemId) {
+		return todoRepository.toggleDone(itemId);
 	}
 
 }

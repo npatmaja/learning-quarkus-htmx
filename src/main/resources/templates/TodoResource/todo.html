@@ -7,7 +7,7 @@
 	</head>
 	<body>
 		<h1>Simple Todo App</h1>
-		<div>
+		<div x-data="{}">
 			<form 
 				x-data
 				id="new-todo"
@@ -23,7 +23,24 @@
 			{#fragment id=todo_items}
 			<ul id="todo-list">
 				{#for item in items}
-				<li><input type="checkbox" name="id" value={item.id} {#if item.done}checked{/if}><label>{item.task}</label></li>
+				{#fragment id=todo_item}
+				<li>
+					<div id="item-{item.id}">
+						<form id="toggle-{item.id}"
+							x-ref="toggle-{item.id}"
+							hx-post="/todo/toggle-done"
+							hx-swap="outerHTML"
+							hx-target="#item-{item.id}">
+							<input type="hidden" name="{inject:csrf.parameterName}" value="{inject:csrf.token}" />
+							<input type="hidden" name="id" value="{item.id}">
+						</form>
+						<input type="checkbox" 
+							@click="document.getElementById('toggle-{item.id}').requestSubmit()"
+							{#if item.done}checked{/if}>
+						<label>{item.task}</label>
+					</div>
+				</li>
+				{/fragment}
 				{/for}
 			</ul>
 			{/fragment}
@@ -31,6 +48,7 @@
 		<script>
 			document.body.addEventListener("htmx:beforeSwap", function(e) {
 				if (e.detail.xhr.status === 200) {
+					console.log(e);
 					window.dispatchEvent(new CustomEvent('todo-added', { bubbles: true }));
 				}
 			})
