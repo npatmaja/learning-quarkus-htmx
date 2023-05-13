@@ -45,8 +45,8 @@ public class TodoResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_HTML)
-	@Path("/toggle-done")
-	public TemplateInstance toggleDone(@FormParam("id") int itemId) {
+	@Path("/{itemId}/toggle-done")
+	public TemplateInstance toggleDone(int itemId) {
 		return Templates.todo$todo_item(todoService.toggleDone(itemId));
 	}
 }

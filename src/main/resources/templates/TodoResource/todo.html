@@ -28,11 +28,10 @@
 					<div id="item-{item.id}">
 						<form id="toggle-{item.id}"
 							x-ref="toggle_{item.id}"
-							hx-post="/todo/toggle-done"
+							hx-post="/todo/{item.id}/toggle-done"
 							hx-swap="outerHTML"
 							hx-target="#item-{item.id}">
 							<input type="hidden" name="{inject:csrf.parameterName}" value="{inject:csrf.token}" />
-							<input type="hidden" name="id" value="{item.id}">
 						</form>
 						<input type="checkbox" 
 							@click="$refs.toggle_{item.id}.requestSubmit()"
