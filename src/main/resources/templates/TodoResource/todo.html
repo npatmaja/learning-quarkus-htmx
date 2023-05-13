@@ -27,7 +27,7 @@
 				<li>
 					<div id="item-{item.id}">
 						<form id="toggle-{item.id}"
-							x-ref="toggle-{item.id}"
+							x-ref="toggle_{item.id}"
 							hx-post="/todo/toggle-done"
 							hx-swap="outerHTML"
 							hx-target="#item-{item.id}">
@@ -35,7 +35,7 @@
 							<input type="hidden" name="id" value="{item.id}">
 						</form>
 						<input type="checkbox" 
-							@click="document.getElementById('toggle-{item.id}').requestSubmit()"
+							@click="$refs.toggle_{item.id}.requestSubmit()"
 							{#if item.done}checked{/if}>
 						<label>{item.task}</label>
 					</div>
